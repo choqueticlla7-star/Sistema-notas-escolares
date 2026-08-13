@@ -1,0 +1,1268 @@
+
+/* ============================================================
+   SISTEMA DE NOTAS ESCOLARES — CSS V3
+   Rediseño completo basado EXCLUSIVAMENTE en las clases reales
+   de index.html y admin.html.
+   No modifica HTML, JS, IDs ni datos.
+   ============================================================ */
+
+:root{
+  --primary:#4f46e5;
+  --primary-2:#6366f1;
+  --violet:#7c3aed;
+  --primary-soft:#eef2ff;
+  --primary-line:#c7d2fe;
+
+  --success:#10b981;
+  --success-soft:#ecfdf5;
+  --warning:#f59e0b;
+  --warning-soft:#fffbeb;
+  --danger:#ef4444;
+  --danger-soft:#fef2f2;
+
+  --bg:#f5f7fb;
+  --surface:#ffffff;
+  --surface-2:#f8fafc;
+  --line:#e5e7eb;
+
+  --text:#111827;
+  --text-2:#374151;
+  --muted:#6b7280;
+  --muted-2:#9ca3af;
+
+  --radius-sm:10px;
+  --radius:18px;
+  --radius-lg:24px;
+
+  --shadow-sm:0 4px 16px rgba(15,23,42,.05);
+  --shadow:0 10px 30px rgba(15,23,42,.07);
+  --shadow-lg:0 20px 55px rgba(15,23,42,.12);
+
+  --ease:180ms ease;
+}
+
+*,
+*::before,
+*::after{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  min-width:320px;
+  background:
+    radial-gradient(circle at 0 0,rgba(79,70,229,.07),transparent 28rem),
+    radial-gradient(circle at 100% 0,rgba(124,58,237,.055),transparent 24rem),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button,input,select,textarea{outline:none}
+h1,h2,h3,h4,h5,p{margin-top:0}
+h1,h2,h3,h4,h5{letter-spacing:-.025em}
+
+/* ============================================================
+   ENCABEZADO — index + admin
+   ============================================================ */
+
+.encabezado{
+  position:relative;
+  overflow:hidden;
+  color:#fff;
+  background:
+    radial-gradient(circle at 82% 15%,rgba(255,255,255,.18),transparent 17rem),
+    linear-gradient(135deg,#312e81 0%,#4f46e5 52%,#7c3aed 100%);
+  box-shadow:0 12px 34px rgba(79,70,229,.18);
+}
+
+.encabezado::after{
+  content:"";
+  position:absolute;
+  width:260px;height:260px;
+  right:-90px;bottom:-150px;
+  border:38px solid rgba(255,255,255,.07);
+  border-radius:50%;
+}
+
+.admin-header{
+  box-shadow:0 14px 38px rgba(79,70,229,.2);
+}
+
+.contenedor-encabezado{
+  width:min(1180px,calc(100% - 32px));
+  min-height:92px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  position:relative;
+  z-index:1;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  min-width:0;
+}
+
+.icono-logo{
+  display:grid;
+  place-items:center;
+  width:48px;height:48px;
+  flex:0 0 48px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:15px;
+  background:rgba(255,255,255,.13);
+  box-shadow:0 8px 22px rgba(0,0,0,.08);
+  font-size:1.55rem;
+}
+
+.texto-logo{
+  min-width:0;
+}
+
+.texto-logo h1{
+  margin:0;
+  color:#fff;
+  font-size:clamp(1.2rem,3vw,1.55rem);
+  font-weight:850;
+  white-space:nowrap;
+}
+
+.texto-logo p{
+  margin:3px 0 0;
+  color:rgba(255,255,255,.75);
+  font-size:.84rem;
+  font-weight:600;
+}
+
+.boton-modo-oscuro{
+  flex:0 0 auto;
+  min-height:42px;
+  padding:10px 14px;
+  color:#fff;
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:12px;
+  font-weight:750;
+  backdrop-filter:blur(10px);
+  transition:transform var(--ease),background var(--ease);
+}
+
+.boton-modo-oscuro:hover{
+  transform:translateY(-1px);
+  background:rgba(255,255,255,.2);
+}
+
+/* ============================================================
+   CONTENIDO
+   ============================================================ */
+
+.contenedor-principal{
+  width:min(1120px,calc(100% - 32px));
+  margin:0 auto;
+  padding:34px 0 45px;
+}
+
+.seccion-consulta{
+  max-width:760px;
+  margin:0 auto;
+}
+
+.tarjeta-consulta{
+  padding:30px;
+  background:rgba(255,255,255,.95);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);
+}
+
+.tarjeta-consulta h2{
+  margin-bottom:8px;
+  font-size:clamp(1.35rem,3vw,1.75rem);
+}
+
+.texto-informativo{
+  margin-bottom:22px;
+  color:var(--muted);
+}
+
+/* ============================================================
+   FORMULARIOS
+   ============================================================ */
+
+.formulario-busqueda,
+.formulario-login{
+  display:grid;
+  gap:15px;
+}
+
+.campo-busqueda{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.campo-busqueda label{
+  color:var(--text-2);
+  font-size:.84rem;
+  font-weight:800;
+}
+
+.campo-busqueda input,
+.campo-busqueda select,
+.campo-busqueda textarea{
+  width:100%;
+  min-height:45px;
+  padding:11px 13px;
+  color:var(--text);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  transition:border-color var(--ease),box-shadow var(--ease),background var(--ease);
+}
+
+.campo-busqueda input:hover,
+.campo-busqueda select:hover,
+.campo-busqueda textarea:hover{
+  border-color:#cbd5e1;
+}
+
+.campo-busqueda input:focus,
+.campo-busqueda select:focus,
+.campo-busqueda textarea:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 4px rgba(79,70,229,.11);
+}
+
+.ayuda-texto{
+  color:var(--muted-2);
+  font-size:.76rem;
+}
+
+.boton-buscar{
+  width:100%;
+  min-height:48px;
+  border:0;
+  border-radius:12px;
+  color:#fff;
+  background:linear-gradient(135deg,var(--primary),var(--violet));
+  box-shadow:0 8px 20px rgba(79,70,229,.2);
+  font-weight:800;
+  transition:transform var(--ease),box-shadow var(--ease);
+}
+
+.boton-buscar:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 28px rgba(79,70,229,.28);
+}
+
+/* ============================================================
+   MENSAJES
+   ============================================================ */
+
+.mensaje-error{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:17px;
+  padding:12px 14px;
+  color:#991b1b;
+  background:var(--danger-soft);
+  border:1px solid #fecaca;
+  border-radius:12px;
+}
+
+.mensaje-error p{margin:0;font-weight:650}
+.icono-error{font-size:1.05rem}
+
+/* ============================================================
+   RESULTADOS — ESTUDIANTE
+   ============================================================ */
+
+.seccion-resultados{
+  animation:aparecer .3s ease;
+}
+
+@keyframes aparecer{
+  from{opacity:0;transform:translateY(7px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.tarjeta-info-estudiante{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:24px;
+  color:#fff;
+  background:
+    radial-gradient(circle at 90% 10%,rgba(255,255,255,.16),transparent 14rem),
+    linear-gradient(135deg,#3730a3,#4f46e5 55%,#7c3aed);
+  border-radius:var(--radius);
+  box-shadow:0 14px 34px rgba(79,70,229,.18);
+}
+
+.avatar-estudiante{
+  display:grid;
+  place-items:center;
+  width:70px;height:70px;
+  flex:0 0 70px;
+  border-radius:20px;
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.2);
+}
+
+.icono-avatar{font-size:2rem}
+
+.datos-estudiante{min-width:0;flex:1}
+.datos-estudiante h2{
+  margin-bottom:8px;
+  color:#fff;
+  font-size:clamp(1.25rem,4vw,1.7rem);
+}
+
+.detalles-estudiante{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:6px;
+  color:rgba(255,255,255,.82);
+  font-size:.84rem;
+}
+
+.etiqueta{
+  color:rgba(255,255,255,.62);
+  font-weight:750;
+}
+
+.separador{color:rgba(255,255,255,.35)}
+
+.promedio-general{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:16px;
+  padding-top:15px;
+  border-top:1px solid rgba(255,255,255,.18);
+}
+
+.etiqueta-promedio{
+  color:rgba(255,255,255,.72);
+  font-size:.82rem;
+  font-weight:700;
+}
+
+.valor-promedio{
+  color:#fff;
+  font-size:2rem;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-.05em;
+}
+
+.estado-promedio{
+  padding:5px 10px;
+  color:#065f46;
+  background:#d1fae5;
+  border-radius:999px;
+  font-size:.76rem;
+  font-weight:850;
+}
+
+/* ============================================================
+   FILTROS
+   ============================================================ */
+
+.filtro-campos{
+  margin:22px 0 15px;
+  padding:20px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+}
+
+.filtro-campos h3{
+  margin-bottom:13px;
+  font-size:1rem;
+}
+
+.botones-filtro{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.botones-filtro button{
+  min-height:38px;
+  padding:8px 12px;
+  color:var(--text-2);
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:10px;
+  font-size:.78rem;
+  font-weight:750;
+  transition:all var(--ease);
+}
+
+.botones-filtro button:hover{
+  color:var(--primary);
+  border-color:var(--primary-line);
+  background:var(--primary-soft);
+}
+
+.botones-filtro .filtro-activo{
+  color:#fff;
+  background:linear-gradient(135deg,var(--primary),var(--primary-2));
+  border-color:transparent;
+  box-shadow:0 5px 15px rgba(79,70,229,.17);
+}
+
+/* ============================================================
+   TABLA DE NOTAS
+   ============================================================ */
+
+.tabla-contenedor{
+  width:100%;
+  overflow-x:auto;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.tabla-notas{
+  width:100%;
+  min-width:760px;
+  border-collapse:separate;
+  border-spacing:0;
+}
+
+.tabla-notas thead{background:var(--surface-2)}
+
+.tabla-notas th{
+  padding:14px 13px;
+  color:#4b5563;
+  border-bottom:1px solid var(--line);
+  font-size:.72rem;
+  font-weight:850;
+  text-transform:uppercase;
+  letter-spacing:.045em;
+  text-align:left;
+}
+
+.tabla-notas td{
+  padding:14px 13px;
+  color:var(--text-2);
+  border-bottom:1px solid #eef0f4;
+  font-size:.86rem;
+}
+
+.tabla-notas tbody tr:hover{background:#f8f9ff}
+.tabla-notas tbody tr:last-child td{border-bottom:0}
+
+.nota-final{
+  color:var(--primary);
+  font-weight:900;
+}
+
+.estado-nota{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:.72rem;
+  font-weight:850;
+}
+
+/* ============================================================
+   INFORMACIÓN ADICIONAL
+   ============================================================ */
+
+.informacion-adicional{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:15px;
+}
+
+.tarjeta-asistencia,
+.tarjeta-observaciones{
+  padding:20px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+}
+
+.tarjeta-asistencia h3,
+.tarjeta-observaciones h3{
+  margin-bottom:14px;
+  font-size:1rem;
+}
+
+.porcentaje-asistencia{
+  margin-bottom:10px;
+  color:var(--primary);
+  font-size:2rem;
+  font-weight:900;
+  letter-spacing:-.04em;
+}
+
+.barra-progreso{
+  height:9px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#e9edf3;
+}
+
+.progreso-asistencia{
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,var(--primary),var(--violet));
+  transition:width .35s ease;
+}
+
+.tarjeta-observaciones p{
+  margin:0;
+  color:var(--muted);
+}
+
+/* ============================================================
+   ACCIONES
+   ============================================================ */
+
+.botones-accion,
+.botones-formulario{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+}
+
+.boton-imprimir,
+.boton-nueva-consulta,
+.boton-guardar,
+.boton-cancelar,
+.boton-editar,
+.boton-eliminar{
+  min-height:43px;
+  padding:10px 15px;
+  border-radius:11px;
+  font-weight:800;
+  border:1px solid transparent;
+  transition:all var(--ease);
+}
+
+.boton-imprimir,
+.boton-guardar{
+  color:#fff;
+  background:linear-gradient(135deg,var(--primary),var(--violet));
+  box-shadow:0 7px 18px rgba(79,70,229,.18);
+}
+
+.boton-imprimir:hover,
+.boton-guardar:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 24px rgba(79,70,229,.25);
+}
+
+.boton-nueva-consulta{
+  color:var(--primary);
+  background:var(--primary-soft);
+  border-color:var(--primary-line);
+}
+
+.boton-nueva-consulta:hover{
+  background:#e0e7ff;
+}
+
+.boton-cancelar{
+  color:#4b5563;
+  background:#f1f5f9;
+  border-color:#e2e8f0;
+}
+
+.boton-editar{
+  color:#4338ca;
+  background:var(--primary-soft);
+}
+
+.boton-eliminar{
+  color:#b91c1c;
+  background:var(--danger-soft);
+}
+
+/* ============================================================
+   LOGIN ADMIN
+   ============================================================ */
+
+.admin-body .contenedor-principal{
+  padding-top:35px;
+}
+
+.seccion-login{
+  min-height:calc(100vh - 170px);
+  display:grid;
+  place-items:center;
+}
+
+.tarjeta-login{
+  width:min(440px,100%);
+  padding:30px;
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);
+  text-align:center;
+}
+
+.icono-login{
+  display:grid;
+  place-items:center;
+  width:68px;height:68px;
+  margin:0 auto 15px;
+  border-radius:20px;
+  background:var(--primary-soft);
+  font-size:2rem;
+}
+
+.tarjeta-login h2{margin-bottom:8px}
+
+.tarjeta-login .texto-informativo{margin-bottom:22px}
+
+.formulario-login{text-align:left}
+
+/* ============================================================
+   PANEL ADMIN
+   ============================================================ */
+
+.seccion-admin{
+  animation:aparecer .3s ease;
+}
+
+.resumen-estadisticas{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.tarjeta-estadistica{
+  position:relative;
+  min-height:126px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:19px;
+  overflow:hidden;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+  transition:transform var(--ease),box-shadow var(--ease);
+}
+
+.tarjeta-estadistica:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+.tarjeta-estadistica::after{
+  content:"";
+  position:absolute;
+  right:-35px;bottom:-50px;
+  width:130px;height:130px;
+  border-radius:50%;
+  background:var(--primary-soft);
+}
+
+.icono-estadistica{
+  position:relative;
+  z-index:1;
+  display:grid;
+  place-items:center;
+  width:47px;height:47px;
+  flex:0 0 47px;
+  border-radius:14px;
+  background:var(--primary-soft);
+  font-size:1.3rem;
+}
+
+.datos-estadistica{
+  position:relative;
+  z-index:1;
+  min-width:0;
+}
+
+.valor-estadistica{
+  display:block;
+  color:var(--text);
+  font-size:1.75rem;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-.05em;
+}
+
+.etiqueta-estadistica{
+  display:block;
+  margin-top:7px;
+  color:var(--muted);
+  font-size:.8rem;
+  font-weight:650;
+}
+
+.herramientas-admin{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-bottom:20px;
+  padding:12px;
+  background:rgba(255,255,255,.78);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+}
+
+.boton-accion{
+  min-height:43px;
+  color:var(--text-2);
+  background:var(--surface-2);
+  border:1px solid var(--line);
+}
+
+.boton-accion:first-child{
+  color:#fff;
+  background:linear-gradient(135deg,var(--primary),var(--violet));
+  border-color:transparent;
+  box-shadow:0 7px 18px rgba(79,70,229,.17);
+}
+
+.boton-accion:hover{
+  transform:translateY(-1px);
+  border-color:var(--primary-line);
+}
+
+/* ============================================================
+   BUSCADOR ADMIN — INPUT REAL (admin.html)
+   El input no tiene clase propia; está dentro de .buscador-admin.
+   ============================================================ */
+.buscador-admin{
+  width:100%;
+  margin-bottom:12px;
+}
+
+.buscador-admin input{
+  display:block;
+  width:100%;
+  min-height:54px;
+  margin:0;
+  padding:12px 17px;
+  color:var(--text);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:15px;
+  outline:none;
+  box-shadow:var(--shadow-sm);
+  font-size:1rem;
+  font-weight:550;
+  transition:border-color var(--ease),box-shadow var(--ease),background var(--ease);
+}
+
+.buscador-admin input::placeholder{
+  color:var(--muted-2);
+  opacity:1;
+}
+
+.buscador-admin input:hover{
+  border-color:#cbd5e1;
+}
+
+.buscador-admin input:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 4px rgba(79,70,229,.11),var(--shadow-sm);
+}
+
+body.modo-oscuro .buscador-admin input{
+  color:var(--text);
+  background:#0f172a;
+  border-color:#334155;
+}
+
+body.modo-oscuro .buscador-admin input:focus{
+  border-color:var(--primary-2);
+}
+
+/* ============================================================
+   BOTONES ADMIN — CLASE REAL .boton-accion
+   ============================================================ */
+.herramientas-admin .boton-accion{
+  min-height:48px;
+  padding:11px 19px;
+  border-radius:12px;
+  font-size:.98rem;
+  font-weight:800;
+}
+
+.herramientas-admin .boton-accion:first-child{
+  color:#fff;
+  background:linear-gradient(135deg,var(--primary),var(--violet));
+  border-color:transparent;
+}
+
+.herramientas-admin .boton-accion:not(:first-child){
+  color:var(--text-2);
+  background:var(--surface-2);
+  border:1px solid var(--line);
+}
+
+.herramientas-admin .boton-accion:not(:first-child):hover{
+  color:var(--primary);
+  background:var(--primary-soft);
+  border-color:var(--primary-line);
+}
+
+@media (max-width:680px){
+  .buscador-admin input{
+    min-height:52px;
+  }
+}
+
+/* ============================================================
+   FORMULARIO DE EDICIÓN
+   ============================================================ */
+
+.formulario-edicion{
+  margin-bottom:22px;
+  padding:23px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);
+}
+
+.formulario-edicion h3{
+  margin-bottom:20px;
+  font-size:1.3rem;
+}
+
+.seccion-formulario{
+  padding:20px 0;
+  border-top:1px solid var(--line);
+}
+
+.seccion-formulario:first-of-type{
+  border-top:0;
+  padding-top:0;
+}
+
+.seccion-formulario h4{
+  margin-bottom:16px;
+  font-size:1rem;
+}
+
+.grid-formulario{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.campo-notas{
+  margin-top:12px;
+  padding:17px;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:15px;
+}
+
+.campo-notas h5{
+  margin-bottom:12px;
+  color:var(--text-2);
+  font-size:.9rem;
+}
+
+.grid-notas{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+
+.materia-nota{
+  padding:14px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:13px;
+}
+
+.materia-nota label{
+  display:block;
+  margin-bottom:9px;
+  color:var(--text-2);
+  font-size:.8rem;
+  font-weight:800;
+}
+
+.notas-trimestres{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+}
+
+.notas-trimestres input{
+  width:100%;
+  min-width:0;
+  min-height:40px;
+  padding:8px;
+  color:var(--text);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:9px;
+  text-align:center;
+  font-weight:750;
+}
+
+.notas-trimestres input:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(79,70,229,.1);
+}
+
+.campo-notas + .campo-notas{margin-top:10px}
+
+/* ============================================================
+   LISTA ADMIN
+   ============================================================ */
+
+.lista-estudiantes{
+  margin-top:20px;
+}
+
+.buscador-admin{
+  margin-bottom:10px;
+}
+
+.buscador-admin .campo-busqueda{
+  width:100%;
+}
+
+.tabla-admin{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.tabla-admin thead th{
+  padding:14px 16px;
+  color:#4b5563;
+  background:var(--surface-2);
+  border-bottom:1px solid var(--line);
+  font-size:.72rem;
+  font-weight:850;
+  text-align:left;
+  text-transform:uppercase;
+  letter-spacing:.055em;
+}
+
+.tabla-admin tbody td{
+  padding:15px 16px;
+  color:var(--text-2);
+  border-bottom:1px solid #eef0f4;
+}
+
+.tabla-admin tbody tr:last-child td{border-bottom:0}
+.tabla-admin tbody tr:hover{background:#f8f9ff}
+
+.tabla-contenedor{
+  width:100%;
+  overflow-x:auto;
+  border-radius:var(--radius);
+}
+
+.tabla-admin td:first-child{
+  color:var(--primary);
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.tabla-admin td:nth-child(2){font-weight:750}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.pie-pagina{
+  margin-top:35px;
+  padding:22px 10px;
+  color:var(--muted);
+  border-top:1px solid var(--line);
+  text-align:center;
+  font-size:.78rem;
+}
+
+.pie-pagina p{margin:3px 0}
+
+/* ============================================================
+   MODO OSCURO
+   ============================================================ */
+
+body.modo-oscuro{
+  --bg:#0b1120;
+  --surface:#111827;
+  --surface-2:#172033;
+  --line:#263247;
+  --text:#f3f4f6;
+  --text-2:#d1d5db;
+  --muted:#aeb8c8;
+  --muted-2:#7f8a9d;
+
+  background:
+    radial-gradient(circle at 0 0,rgba(79,70,229,.13),transparent 28rem),
+    var(--bg);
+}
+
+body.modo-oscuro .tarjeta-consulta,
+body.modo-oscuro .tarjeta-login,
+body.modo-oscuro .tarjeta-info-estudiante,
+body.modo-oscuro .filtro-campos,
+body.modo-oscuro .tarjeta-asistencia,
+body.modo-oscuro .tarjeta-observaciones,
+body.modo-oscuro .tarjeta-estadistica,
+body.modo-oscuro .herramientas-admin,
+body.modo-oscuro .formulario-edicion,
+body.modo-oscuro .materia-nota,
+body.modo-oscuro .campo-notas{
+  background:var(--surface);
+  border-color:var(--line);
+}
+
+body.modo-oscuro .campo-busqueda input,
+body.modo-oscuro .campo-busqueda select,
+body.modo-oscuro .campo-busqueda textarea,
+body.modo-oscuro .notas-trimestres input{
+  color:var(--text);
+  background:#0f172a;
+  border-color:#334155;
+}
+
+body.modo-oscuro .tabla-notas th,
+body.modo-oscuro .tabla-admin th{
+  color:#cbd5e1;
+  background:#172033;
+  border-color:var(--line);
+}
+
+body.modo-oscuro .tabla-notas td,
+body.modo-oscuro .tabla-admin td{
+  color:var(--text-2);
+  border-color:#202b3e;
+}
+
+body.modo-oscuro .tabla-notas tbody tr:hover,
+body.modo-oscuro .tabla-admin tbody tr:hover{
+  background:#172033;
+}
+
+body.modo-oscuro .texto-informativo,
+body.modo-oscuro .tarjeta-observaciones p,
+body.modo-oscuro .etiqueta-estadistica{
+  color:var(--muted);
+}
+
+body.modo-oscuro .filtro-campos h3,
+body.modo-oscuro .seccion-titulo,
+body.modo-oscuro .seccion-formulario h4,
+body.modo-oscuro .campo-notas h5{
+  color:var(--text);
+}
+
+body.modo-oscuro .botones-filtro button,
+body.modo-oscuro .boton-accion,
+body.modo-oscuro .boton-cancelar{
+  color:var(--text-2);
+  background:#172033;
+  border-color:#334155;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width:900px){
+  .resumen-estadisticas{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .grid-notas{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width:680px){
+  .contenedor-encabezado{
+    width:calc(100% - 20px);
+    min-height:78px;
+  }
+
+  .texto-logo h1{
+    font-size:1.05rem;
+  }
+
+  .texto-logo p{
+    font-size:.72rem;
+  }
+
+  .icono-logo{
+    width:42px;height:42px;flex-basis:42px;
+    border-radius:13px;
+  }
+
+  .boton-modo-oscuro{
+    padding:9px 10px;
+    font-size:.78rem;
+  }
+
+  .contenedor-principal{
+    width:calc(100% - 20px);
+    padding-top:20px;
+  }
+
+  .tarjeta-consulta,
+  .tarjeta-login{
+    padding:21px;
+    border-radius:19px;
+  }
+
+  .tarjeta-info-estudiante{
+    align-items:flex-start;
+    padding:18px;
+    gap:13px;
+    border-radius:17px;
+  }
+
+  .avatar-estudiante{
+    width:52px;height:52px;flex-basis:52px;
+    border-radius:15px;
+  }
+
+  .icono-avatar{font-size:1.5rem}
+
+  .detalles-estudiante{
+    font-size:.76rem;
+  }
+
+  .informacion-adicional{
+    grid-template-columns:1fr;
+  }
+
+  .grid-formulario{
+    grid-template-columns:1fr;
+  }
+
+  .herramientas-admin{
+    padding:9px;
+  }
+
+  .boton-accion{
+    flex:1 1 calc(50% - 9px);
+    min-width:135px;
+  }
+
+  .tabla-contenedor{
+    overflow-x:auto;
+  }
+
+  .tabla-admin{
+    min-width:680px;
+  }
+
+  .tabla-notas{
+    min-width:760px;
+  }
+}
+
+@media (max-width:430px){
+  .resumen-estadisticas{
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+  }
+
+  .tarjeta-estadistica{
+    min-height:104px;
+    padding:13px;
+    gap:9px;
+    border-radius:14px;
+  }
+
+  .icono-estadistica{
+    width:38px;height:38px;flex-basis:38px;
+    border-radius:11px;
+    font-size:1.05rem;
+  }
+
+  .valor-estadistica{
+    font-size:1.4rem;
+  }
+
+  .etiqueta-estadistica{
+    font-size:.7rem;
+  }
+
+  .boton-accion{
+    flex-basis:100%;
+  }
+
+  .notas-trimestres{
+    gap:5px;
+  }
+}
+
+/* ============================================================
+   IMPRESIÓN
+   ============================================================ */
+
+@media print{
+  body{
+    background:#fff!important;
+    color:#111!important;
+  }
+
+  .encabezado{
+    background:#fff!important;
+    color:#111!important;
+    box-shadow:none!important;
+    border-bottom:2px solid #ddd;
+  }
+
+  .texto-logo h1,
+  .texto-logo p{
+    color:#111!important;
+  }
+
+  .boton-modo-oscuro,
+  .botones-accion,
+  .botones-filtro,
+  .pie-pagina{
+    display:none!important;
+  }
+
+  .tarjeta-info-estudiante,
+  .tarjeta-consulta,
+  .tabla-contenedor,
+  .tabla-notas,
+  .tarjeta-asistencia,
+  .tarjeta-observaciones{
+    box-shadow:none!important;
+  }
+}

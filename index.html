@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Calificaciones - Unidad Educativa Simón Bolívar</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+    <!-- Encabezado Principal -->
+    <header class="encabezado">
+        <div class="contenedor-encabezado">
+            <div class="logo">
+                <span class="icono-logo">🎓</span>
+                <div class="texto-logo">
+                    <h1>Unidad Educativa Simón Bolívar</h1>
+                    <p>Secundaria Comunitaria Productiva</p>
+                </div>
+            </div>
+            <button class="boton-modo-oscuro" id="botonModoOscuro" onclick="toggleModoOscuro()">
+                🌙 Modo Oscuro
+            </button>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="contenedor-principal">
+        
+        <!-- Sección de Consulta -->
+        <section class="seccion-consulta" id="seccionConsulta">
+            <div class="tarjeta-consulta">
+                <h2>📋 Consulta de Calificaciones</h2>
+                <p class="texto-informativo">
+                    Ingresa tu código estudiantil para ver tus calificaciones
+                </p>
+                
+                <!-- Formulario de Búsqueda -->
+                <form class="formulario-busqueda" id="formularioBusqueda" onsubmit="buscarEstudiante(event)">
+                    <div class="campo-busqueda">
+                        <label for="codigoEstudiante">Código Estudiantil:</label>
+                        <input 
+                            type="text" 
+                            id="codigoEstudiante" 
+                            name="codigoEstudiante"
+                            placeholder="Ejemplo: EST-2026-001"
+                            required
+                            autocomplete="off"
+                        >
+                        <small class="ayuda-texto">
+                            El código se encuentra en tu carnet estudiantil
+                        </small>
+                    </div>
+                    
+                    <button type="submit" class="boton-buscar">
+                        🔍 Consultar Notas
+                    </button>
+                </form>
+                
+                <!-- Mensajes de Error -->
+                <div class="mensaje-error" id="mensajeError" style="display: none;">
+                    <span class="icono-error">❌</span>
+                    <p id="textoError">Código no encontrado</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Resultados -->
+        <section class="seccion-resultados" id="seccionResultados" style="display: none;">
+            
+            <!-- Información del Estudiante -->
+            <div class="tarjeta-info-estudiante">
+                <div class="avatar-estudiante">
+                    <span class="icono-avatar">👤</span>
+                </div>
+                <div class="datos-estudiante">
+                    <h2 id="nombreEstudiante">Nombre del Estudiante</h2>
+                    <div class="detalles-estudiante">
+                        <span class="etiqueta">Código:</span>
+                        <span id="codigoMostrado">EST-2026-001</span>
+                        <span class="separador">|</span>
+                        <span class="etiqueta">Curso:</span>
+                        <span id="cursoMostrado">3ro de Secundaria</span>
+                        <span class="separador">|</span>
+                        <span class="etiqueta">Paralelo:</span>
+                        <span id="paraleloMostrado">A</span>
+                    </div>
+                    <div class="promedio-general">
+                        <span class="etiqueta-promedio">Promedio General:</span>
+                        <span class="valor-promedio" id="promedioGeneral">85</span>
+                        <span class="estado-promedio" id="estadoPromedio">Muy Bueno</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtro por Campo -->
+            <div class="filtro-campos">
+                <h3>📚 Campos de Saberes y Conocimientos</h3>
+                <div class="botones-filtro">
+                    <button class="filtro-activo" onclick="mostrarTodasMaterias()">
+                        Todas las Materias
+                    </button>
+                    <button onclick="filtrarPorCampo('Comunidad y Sociedad')">
+                        Comunidad y Sociedad
+                    </button>
+                    <button onclick="filtrarPorCampo('Vida, Tierra y Territorio')">
+                        Vida, Tierra y Territorio
+                    </button>
+                    <button onclick="filtrarPorCampo('Ciencia, Tecnología y Producción')">
+                        Ciencia y Tecnología
+                    </button>
+                    <button onclick="filtrarPorCampo('Cosmos y Pensamiento')">
+                        Cosmos y Pensamiento
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabla de Notas -->
+            <div class="tabla-contenedor">
+                <table class="tabla-notas">
+                    <thead>
+                        <tr>
+                            <th>Campo</th>
+                            <th>Materia</th>
+                            <th>1er Trimestre</th>
+                            <th>2do Trimestre</th>
+                            <th>3er Trimestre</th>
+                            <th>Promedio</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaNotas">
+                        <!-- Aquí se insertarán las filas dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Información Adicional -->
+            <div class="informacion-adicional">
+                <div class="tarjeta-asistencia">
+                    <h3>📊 Asistencia</h3>
+                    <div class="porcentaje-asistencia">
+                        <span id="porcentajeAsistencia">92%</span>
+                    </div>
+                    <div class="barra-progreso">
+                        <div class="progreso-asistencia" id="barraAsistencia" style="width: 92%;"></div>
+                    </div>
+                </div>
+                
+                <div class="tarjeta-observaciones">
+                    <h3>📝 Observaciones</h3>
+                    <p id="observacionesEstudiante">Sin observaciones</p>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="botones-accion">
+                <button class="boton-imprimir" onclick="imprimirBoletin()">
+                    🖨️ Imprimir Boletín
+                </button>
+                <button class="boton-nueva-consulta" onclick="nuevaConsulta()">
+                    🔄 Nueva Consulta
+                </button>
+            </div>
+        </section>
+
+        <!-- Pie de Página -->
+        <footer class="pie-pagina">
+            <p>&copy; 2026 Unidad Educativa Simón Bolívar</p>
+            <p>Ministerio de Educación - Estado Plurinacional de Bolivia</p>
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/datos.js"></script>
+    <script src="js/consulta.js"></script>
+</body>
+</html>

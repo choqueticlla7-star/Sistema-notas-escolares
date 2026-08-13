@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - Unidad Educativa Simón Bolívar</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body class="admin-body">
+    <!-- Encabezado del Panel Admin -->
+    <header class="encabezado admin-header">
+        <div class="contenedor-encabezado">
+            <div class="logo">
+                <span class="icono-logo">🔐</span>
+                <div class="texto-logo">
+                    <h1>Panel Administrativo</h1>
+                    <p>Gestión de Calificaciones - 2026</p>
+                </div>
+            </div>
+            <button class="boton-modo-oscuro" onclick="toggleModoOscuro()">
+                🌙 Modo Oscuro
+            </button>
+        </div>
+    </header>
+
+    <main class="contenedor-principal">
+        
+        <!-- Sección de Login -->
+        <section class="seccion-login" id="seccionLogin">
+            <div class="tarjeta-login">
+                <div class="icono-login">🔐</div>
+                <h2>Acceso Restringido</h2>
+                <p class="texto-informativo">
+                    Solo personal autorizado puede ingresar
+                </p>
+                
+                <form class="formulario-login" id="formularioLogin" onsubmit="iniciarSesion(event)">
+                    <div class="campo-busqueda">
+                        <label for="usuario">Usuario:</label>
+                        <input 
+                            type="text" 
+                            id="usuario" 
+                            placeholder="Ingrese su usuario"
+                            required
+                            autocomplete="username"
+                        >
+                    </div>
+                    
+                    <div class="campo-busqueda">
+                        <label for="password">Contraseña:</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            placeholder="Ingrese su contraseña"
+                            required
+                            autocomplete="current-password"
+                        >
+                    </div>
+                    
+                    <button type="submit" class="boton-buscar">
+                        🔑 Iniciar Sesión
+                    </button>
+                </form>
+                
+                <div class="mensaje-error" id="mensajeErrorLogin" style="display: none;">
+                    <span class="icono-error">❌</span>
+                    <p id="textoErrorLogin">Usuario o contraseña incorrectos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección del Panel Admin (Oculta inicialmente) -->
+        <section class="seccion-admin" id="seccionAdmin" style="display: none;">
+            
+            <!-- Resumen Estadístico -->
+            <div class="resumen-estadisticas">
+                <div class="tarjeta-estadistica">
+                    <div class="icono-estadistica">👨‍🎓</div>
+                    <div class="datos-estadistica">
+                        <span class="valor-estadistica" id="totalEstudiantes">0</span>
+                        <span class="etiqueta-estadistica">Estudiantes</span>
+                    </div>
+                </div>
+                
+                <div class="tarjeta-estadistica">
+                    <div class="icono-estadistica">📊</div>
+                    <div class="datos-estadistica">
+                        <span class="valor-estadistica" id="promedioGeneral">0</span>
+                        <span class="etiqueta-estadistica">Promedio General</span>
+                    </div>
+                </div>
+                
+                <div class="tarjeta-estadistica">
+                    <div class="icono-estadistica">✅</div>
+                    <div class="datos-estadistica">
+                        <span class="valor-estadistica" id="porcentajeAprobacion">0%</span>
+                        <span class="etiqueta-estadistica">Aprobación</span>
+                    </div>
+                </div>
+                
+                <div class="tarjeta-estadistica">
+                    <div class="icono-estadistica">📈</div>
+                    <div class="datos-estadistica">
+                        <span class="valor-estadistica" id="totalMaterias">14</span>
+                        <span class="etiqueta-estadistica">Materias</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Herramientas de Gestión -->
+            <div class="herramientas-admin">
+                <button class="boton-accion" onclick="mostrarAgregarEstudiante()">
+                    ➕ Agregar Estudiante
+                </button>
+                <button class="boton-accion" onclick="exportarDatos()">
+                    📥 Exportar Datos
+                </button>
+                <button class="boton-accion" onclick="cerrarSesion()">
+                    🚪 Cerrar Sesión
+                </button>
+            </div>
+
+            <!-- Formulario para Agregar/Editar Estudiante -->
+            <div class="formulario-edicion" id="formularioEdicion" style="display: none;">
+                <h3 id="tituloFormulario">Agregar Nuevo Estudiante</h3>
+                
+                <form id="formularioEstudiante" onsubmit="guardarEstudiante(event)">
+                    <input type="hidden" id="codigoOriginal">
+                    
+                    <!-- Datos Básicos -->
+                    <div class="seccion-formulario">
+                        <h4>👤 Datos del Estudiante</h4>
+                        
+                        <div class="grid-formulario">
+                            <div class="campo-busqueda">
+                                <label for="nombreCompleto">Nombre Completo:</label>
+                                <input type="text" id="nombreCompleto" required>
+                            </div>
+                            
+                            <div class="campo-busqueda">
+                                <label for="codigoEstudiante">Código:</label>
+                                <input type="text" id="codigoEstudiante" placeholder="EST-2026-XXX" required>
+                            </div>
+                            
+                            <div class="campo-busqueda">
+                                <label for="paralelo">Paralelo:</label>
+                                <select id="paralelo" required>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>
+                            </div>
+                            
+                            <div class="campo-busqueda">
+                                <label for="asistencia">Asistencia (%):</label>
+                                <input type="number" id="asistencia" min="0" max="100" required>
+                            </div>
+                        </div>
+                        
+                        <div class="campo-busqueda">
+                            <label for="observaciones">Observaciones:</label>
+                            <textarea id="observaciones" rows="2"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Notas por Campo -->
+                    <div class="seccion-formulario">
+                        <h4>📊 Calificaciones por Campo de Saberes</h4>
+                        
+                        <!-- Campo: Comunidad y Sociedad -->
+                        <div class="campo-notas">
+                            <h5>Comunidad y Sociedad</h5>
+                            <div class="grid-notas">
+                                <div class="materia-nota">
+                                    <label>Comunicación y Lenguajes:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Comunicación y Lenguajes_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Comunicación y Lenguajes_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Comunicación y Lenguajes_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="materia-nota">
+                                    <label>Lengua Originaria (Aymara):</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Lengua Originaria (Aymara)_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Lengua Originaria (Aymara)_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Lengua Originaria (Aymara)_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="materia-nota">
+                                    <label>Ciencias Sociales:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Ciencias Sociales_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Ciencias Sociales_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Ciencias Sociales_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="materia-nota">
+                                    <label>Educación Física y Deportes:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Educación Física y Deportes_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Educación Física y Deportes_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Educación Física y Deportes_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="materia-nota">
+                                    <label>Educación Musical:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Educación Musical_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Educación Musical_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Educación Musical_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="materia-nota">
+                                    <label>Artes Plásticas y Visuales:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Artes Plásticas y Visuales_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Artes Plásticas y Visuales_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Artes Plásticas y Visuales_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Campo: Vida, Tierra y Territorio -->
+                        <div class="campo-notas">
+                            <h5>Vida, Tierra y Territorio</h5>
+                            <div class="grid-notas">
+                                <div class="materia-nota">
+                                    <label>Matemática:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Matemática_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Matemática_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Matemática_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="materia-nota">
+                                    <label>Biología:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Biología_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Biología_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Biología_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="materia-nota">
+                                    <label>Física:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Física_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Física_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Física_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="materia-nota">
+                                    <label>Química:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Química_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Química_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Química_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Campo: Ciencia, Tecnología y Producción -->
+                        <div class="campo-notas">
+                            <h5>Ciencia, Tecnología y Producción</h5>
+                            <div class="grid-notas">
+                                <div class="materia-nota">
+                                    <label>Técnica Tecnológica General:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Técnica Tecnológica General_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Técnica Tecnológica General_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Técnica Tecnológica General_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="materia-nota">
+                                    <label>Computación e Informática:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Computación e Informática_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Computación e Informática_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Computación e Informática_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Campo: Cosmos y Pensamiento -->
+                        <div class="campo-notas">
+                            <h5>Cosmos y Pensamiento</h5>
+                            <div class="grid-notas">
+                                <div class="materia-nota">
+                                    <label>Cosmovisiones y Filosofía:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Cosmovisiones y Filosofía_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Cosmovisiones y Filosofía_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Cosmovisiones y Filosofía_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="materia-nota">
+                                    <label>Valores, Espiritualidad y Religiones:</label>
+                                    <div class="notas-trimestres">
+                                        <input type="number" id="nota_Valores, Espiritualidad y Religiones_1" min="0" max="100" placeholder="1er T" required>
+                                        <input type="number" id="nota_Valores, Espiritualidad y Religiones_2" min="0" max="100" placeholder="2do T" required>
+                                        <input type="number" id="nota_Valores, Espiritualidad y Religiones_3" min="0" max="100" placeholder="3er T" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="botones-formulario">
+                        <button type="submit" class="boton-guardar">
+                            💾 Guardar Estudiante
+                        </button>
+                        <button type="button" class="boton-cancelar" onclick="cancelarEdicion()">
+                            ❌ Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Lista de Estudiantes -->
+            <div class="lista-estudiantes">
+                <h3>📋 Lista de Estudiantes</h3>
+                
+                <div class="buscador-admin">
+                    <input 
+                        type="text" 
+                        id="busquedaAdmin" 
+                        placeholder="🔍 Buscar estudiante..."
+                        oninput="filtrarEstudiantes()"
+                    >
+                </div>
+                
+                <div class="tabla-contenedor">
+                    <table class="tabla-notas tabla-admin">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Paralelo</th>
+                                <th>Promedio</th>
+                                <th>Asistencia</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTablaAdmin">
+                            <!-- Se llena dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pie-pagina">
+        <p>&copy; 2026 Unidad Educativa Simón Bolívar</p>
+        <p>Panel Administrativo - Acceso Restringido</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/datos.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -17,7 +17,7 @@ Sistema web para consulta de calificaciones estudiantiles.
 - JSON
 
 ## 📱 Acceso
-[Ver demo](https://choqueticlla7-star.github.io/sistema-notas-escolares/)
+[Ver demo](https://choqueticlla7-star.github.io/Sistema-notas-escolares/)
 
 ## 👩‍💻 Autor
 Desarrollado por ELIA GABRIEL VELARDE

@@ -20,5 +20,5 @@ Sistema web para consulta de calificaciones estudiantiles.
 [Ver demo](https://choqueticlla7-star.github.io/sistema-notas-escolares/)
 
 ## 👩‍💻 Autor
-Desarrollado por [Tu Hermana]
+Desarrollado por ELIA GABRIEL VELARDE
 Proyecto de graduación - 2024
